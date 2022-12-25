@@ -4,6 +4,7 @@ import {
   InternalServerErrorException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import hashPassword from 'src/utils/auth/hashPassword';
 import { Repository } from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
 import { User } from './user.entity';
@@ -15,6 +16,7 @@ export class AuthService {
   async createUser(createUserDto: CreateUserDto): Promise<void> {
     const user = this.repository.create(createUserDto);
     try {
+      user.password = hashPassword(user.password);
       await this.repository.save(user);
     } catch (error) {
       if (error.code === '23505') {
