@@ -9,11 +9,11 @@ import { TasksModule } from './tasks/tasks.module';
     TasksModule,
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: process.env.DATABASE_HOST,
+      host: process.env.DATABASE_HOST || 'localhost',
       port: 5432,
       username: process.env.DATABASE_USERNAME,
       password: process.env.DATABASE_PASSWORD,
-      database: process.env.DATABASE_NAME,
+      database: process.env.DATABASE_NAME || 'task-management',
       autoLoadEntities: true,
       synchronize: true,
     }),

@@ -11,5 +11,6 @@ async function bootstrap() {
   );
 
   await app.listen(3000);
+  console.log(`Application starts at url: ${await app.getUrl()}`);
 }
 bootstrap();
