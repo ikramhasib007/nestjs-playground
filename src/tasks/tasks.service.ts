@@ -11,8 +11,12 @@ import { User } from 'src/auth/user.entity';
 export class TasksService {
   constructor(@InjectRepository(Task) private repository: Repository<Task>) {}
 
-  async getTasks({ search, status }: GetTasksFilterDto): Promise<Task[]> {
+  async getTasks(
+    { search, status }: GetTasksFilterDto,
+    user: User,
+  ): Promise<Task[]> {
     const query = this.repository.createQueryBuilder('task');
+    query.where({ user });
 
     if (status) {
       query.andWhere('task.status = :status', { status });
