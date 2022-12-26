@@ -1,10 +1,11 @@
-import { ValidationPipe } from '@nestjs/common';
+import { Logger, ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 import { TransformInterceptor } from './transform.interceptor';
 
 async function bootstrap() {
+  const logger = new Logger();
   const appOptions = { cors: true };
   const app = await NestFactory.create(AppModule, appOptions);
   app.setGlobalPrefix('api');
@@ -26,7 +27,8 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup('/docs', app, document);
 
-  await app.listen(3000);
-  console.log(`Application starts at url: ${await app.getUrl()}`);
+  const port = 3000;
+  await app.listen(port);
+  logger.log(`Application listening on port ${port}`);
 }
 bootstrap();
