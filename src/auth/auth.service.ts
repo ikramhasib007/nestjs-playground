@@ -7,7 +7,7 @@ import {
 import { JwtService } from '@nestjs/jwt';
 import { InjectRepository } from '@nestjs/typeorm';
 import * as bcrypt from 'bcryptjs';
-import hashPassword from 'src/utils/auth/hashPassword';
+import hashPassword from '../utils/auth/hashPassword';
 import { Repository } from 'typeorm';
 import { AuthCredentailsDto } from './dto/auth-credentials.dto';
 import { CreateUserDto } from './dto/create-user.dto';
